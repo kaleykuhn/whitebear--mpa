@@ -1,91 +1,59 @@
 import React from "react";
 import thumbsUpIcon from "../../icons/thumbs-up.svg";
 import Header from "../ui/Header";
+import Navigation from "../ui/Navigation";
+import AppTemplate from "../ui/AppTemplate";
 
 export default function ReviewAnswer() {
    return (
-      <div className="container">
-         <div className="row">
-            <div className="col-12 col-xl-6 offset-xl-3 col-lg-8 offset-lg-2 col-md-10 offset-md-1">
-               <Header />
-               <div
-                  className="btn-group d-flex mb-5"
-                  role="navigation"
-                  aria-label="navigation"
-               >
-                  <a
-                     href="create-cue.html"
-                     type="button"
-                     className="btn btn-secondary"
-                  >
-                     Create new
-                  </a>
-                  <button
-                     type="button"
-                     className="btn btn-secondary tab-seperator tab-active"
-                  >
-                     Review
-                  </button>
-                  <a
-                     href="all-cards.html"
-                     type="button"
-                     className="btn btn-secondary"
-                  >
-                     All Cards
-                  </a>
-               </div>
-               <div className="mb-5"></div>
-               <div className="mb-5">
-                  <div className="card bg-primary">
-                     <div className="card-body">
-                        One morning, when Gregor Samsa woke from troubled
-                        dreams, he found himself transformed in his bed into a
-                        horrible vermin. He lay on his armour-like back, and if
-                        he lifted his head a little he could see his brown
-                        belly, slightly domed and divided by arches into stiff
-                        sections. The bedding was hardly.
-                     </div>
-                  </div>
+      <AppTemplate>
+         <Header />
+         <Navigation />
 
-                  <div className="card bg-secondary">
-                     <div className="card-body">
-                        One morning, when Gregor Samsa woke from troubled
-                        dreams, he found himself transformed in his bed into a
-                        horrible vermin. He lay on his armour-like back, and if
-                        he lifted his head a little he could see his brown
-                        belly, slightly domed and divided by arches into stiff
-                        sections. The bedding was hardly.
-                     </div>
-                  </div>
+         <div className="mb-5"></div>
+         <div className="mb-5">
+            <div className="card bg-primary">
+               <div className="card-body">
+                  One morning, when Gregor Samsa woke from troubled dreams, he
+                  found himself transformed in his bed into a horrible vermin.
+                  He lay on his armour-like back, and if he lifted his head a
+                  little he could see his brown belly, slightly domed and
+                  divided by arches into stiff sections. The bedding was hardly.
                </div>
-               <a href="edit.html" type="button" className="btn btn-link">
-                  Edit
-               </a>
-               <div className="float-right">
-                  <a
-                     href="out-of-cards.html"
-                     type="button"
-                     className="btn btn-outline-primary mr-4"
-                  >
-                     Needs Work
-                  </a>
+            </div>
 
-                  <a
-                     href="review-cue.html"
-                     type="button"
-                     className="btn btn-primary"
-                  >
-                     <img
-                        src={thumbsUpIcon}
-                        width="20px"
-                        style={{ marginBottom: "5px", marginRight: "4px" }}
-                        alt=""
-                     />
-                     Got it
-                  </a>
+            <div className="card bg-secondary">
+               <div className="card-body">
+                  One morning, when Gregor Samsa woke from troubled dreams, he
+                  found himself transformed in his bed into a horrible vermin.
+                  He lay on his armour-like back, and if he lifted his head a
+                  little he could see his brown belly, slightly domed and
+                  divided by arches into stiff sections. The bedding was hardly.
                </div>
             </div>
          </div>
-      </div>
+         <a href="edit.html" type="button" className="btn btn-link">
+            Edit
+         </a>
+         <div className="float-right">
+            <a
+               href="out-of-cards.html"
+               type="button"
+               className="btn btn-outline-primary mr-4"
+            >
+               Needs Work
+            </a>
+
+            <a href="review-cue.html" type="button" className="btn btn-primary">
+               <img
+                  src={thumbsUpIcon}
+                  width="20px"
+                  style={{ marginBottom: "5px", marginRight: "4px" }}
+                  alt=""
+               />
+               Got it
+            </a>
+         </div>
+      </AppTemplate>
    );
 }
