@@ -1,6 +1,6 @@
 import React from "react";
 import appLogo from "../../icons/logo-app.svg";
-
+import { Link } from "react-router-dom";
 export default function Header() {
    return (
       <div>
@@ -8,13 +8,9 @@ export default function Header() {
 
          <h3 className="d-inline text-brand text-dark ml-1 ">White Bear</h3>
 
-         <a
-            href="index.html"
-            type="button"
-            className="btn btn-link float-right"
-         >
+         <Link to="/" className="btn btn-link float-right">
             Log out
-         </a>
+         </Link>
       </div>
    );
 }
