@@ -32,15 +32,15 @@ export default function Edit() {
          <p className="float-right mb-5 mt-2">205/240</p>
          <div className="clearfix"></div>
          <Link
-            to="/all-cards"
+            to="all-cards"
             type="button"
             className="btn btn-link"
             id="create-error"
          >
             Discard changes
          </Link>
-         <a
-            href="all-cards"
+         <Link
+            to="all-cards"
             type="button"
             className="btn btn-primary float-right btn-lg"
             id="save-imagery"
@@ -53,7 +53,7 @@ export default function Edit() {
                alt=""
             />
             Save
-         </a>
+         </Link>
          <h4 className="my-8 text-center text-muted">Card Properties</h4>
          <div className="row">
             <div className="col-4 d-flex">
