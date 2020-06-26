@@ -1,15 +1,12 @@
 import React from "react";
 import thumbsUpIcon from "../../icons/thumbs-up.svg";
-import Header from "../ui/Header";
-import Navigation from "../ui/Navigation";
+
 import AppTemplate from "../ui/AppTemplate";
+import { Link } from "react-router-dom";
 
 export default function ReviewAnswer() {
    return (
       <AppTemplate>
-         <Header />
-         <Navigation />
-
          <div className="mb-5"></div>
          <div className="mb-5">
             <div className="card bg-primary">
@@ -32,19 +29,23 @@ export default function ReviewAnswer() {
                </div>
             </div>
          </div>
-         <a href="edit.html" type="button" className="btn btn-link">
+         <Link to="/edit" type="button" className="btn btn-link">
             Edit
-         </a>
+         </Link>
          <div className="float-right">
-            <a
-               href="out-of-cards.html"
+            <Link
+               to="/review-empty"
                type="button"
                className="btn btn-outline-primary mr-4"
             >
                Needs Work
-            </a>
+            </Link>
 
-            <a href="review-cue.html" type="button" className="btn btn-primary">
+            <Link
+               to="/review-imagery"
+               type="button"
+               className="btn btn-primary"
+            >
                <img
                   src={thumbsUpIcon}
                   width="20px"
@@ -52,7 +53,7 @@ export default function ReviewAnswer() {
                   alt=""
                />
                Got it
-            </a>
+            </Link>
          </div>
       </AppTemplate>
    );

@@ -1,15 +1,11 @@
 import React from "react";
 import saveIcon from "../../icons/save.svg";
-import Header from "../ui/Header";
-import Navigation from "../ui/Navigation";
 import AppTemplate from "../ui/AppTemplate";
+import { Link } from "react-router-dom";
 
 export default function CreateImagery() {
    return (
       <AppTemplate>
-         <Header />
-         <Navigation />
-
          <h4 className="my-4 text-center text-muted">Add memorable imagery</h4>
          <div className="mb-2">
             <div className="card bg-primary">
@@ -40,11 +36,12 @@ export default function CreateImagery() {
 
          <p className="float-right mb-5 mt-2">0/240</p>
          <div className="clearfix"></div>
-         <button className="btn btn-link" id="create-error">
+         <Link to="/create-answer" className="btn btn-link" id="create-error">
             Back to answer
-         </button>
+         </Link>
 
-         <button
+         <Link
+            to="/create-answer"
             className="btn btn-primary float-right btn-lg"
             id="save-imagery"
          >
@@ -55,7 +52,7 @@ export default function CreateImagery() {
                alt=""
             />
             Save
-         </button>
+         </Link>
       </AppTemplate>
    );
 }
