@@ -1,7 +1,8 @@
 import React from "react";
-import Edit from "../../icons/edit.svg";
+
 import AppTemplate from "../ui/AppTemplate";
-import { Link } from "react-router-dom";
+import MemoryCard from "../ui/MemoryCard";
+import memoryCards from "../../mock-data/memory-cards";
 
 export default function AllCards() {
    return (
@@ -32,65 +33,15 @@ export default function AllCards() {
                </select>
             </div>
          </div>
-         <div className="row">
-            <div className="col-9 mb-5">
-               <div className="card bg-primary">
-                  <div className="card-body">
-                     One morning, when Gregor Samsa woke from troubled dreams,
-                     he found himself transformed in his bed into a horrible
-                     vermin. He lay on his armour-like back, and if he lifted
-                     his head a little he could see his brown belly, slightly
-                     domed and divided by arches into stiff sections. The
-                     bedding was hardly.
-                  </div>
-               </div>
-
-               <div className="card bg-secondary">
-                  <div className="card-body">
-                     One morning, when Gregor Samsa woke from troubled dreams,
-                     he found himself transformed in his bed into a horrible
-                     vermin. He lay on his armour-like back, and if he lifted
-                     his head a little he could see his brown belly, slightly
-                     domed and divided by arches into stiff sections. The
-                     bedding was hardly.
-                  </div>
-               </div>
-            </div>
-            <div className="col-3">
-               <Link to="/edit" className="btn btn-link d-inline">
-                  <img
-                     src={Edit}
-                     width="20px;"
-                     alt="edit"
-                     style={{ marginBottom: "3px" }}
-                     className="mr-2"
-                  />{" "}
-                  Edit
-               </Link>
-            </div>
-            <div className="row ml-0 mr-0 mt-8">
-               <div className="col-9">
-                  <div className="card bg-primary">
-                     <div className="card-body py-0">
-                        One morning, when Gregor Samsa woke from troubled
-                        dreams, he found himself transformed in his bed into a
-                     </div>
-                  </div>
-               </div>
-               <div className="col-3 float-right">
-                  <Link to="/edit" className="btn btn-link d-inline">
-                     <img
-                        src={Edit}
-                        width="20px;"
-                        alt="edit"
-                        style={{ marginBottom: "3px" }}
-                        className="mr-2"
-                     />{" "}
-                     Edit
-                  </Link>
-               </div>
-            </div>
-         </div>
+         {memoryCards.map((memoryCard) => {
+            return (
+               <MemoryCard
+                  answer={memoryCard.answer}
+                  imagery={memoryCard.imagery}
+                  key={memoryCard.id}
+               />
+            );
+         })}
       </AppTemplate>
    );
 }
