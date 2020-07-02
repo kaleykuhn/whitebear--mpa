@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 export default function LogIn() {
    return (
-      <div className="offset-1 col-10 offset-sm-1 col-sm-9 offset-md-1 col-md-4 offset-lg-1 col-lg-4 offset-xl-1 col-xl-4 mb-6 mt-8">
+      <div className="offset-1 col-10 offset-sm-1 col-sm-9 offset-md-1 col-md-4 offset-lg-2 col-lg-4 offset-xl-2 col-xl-4 mb-6 mt-8">
          <div className="card">
             <div className="card-body text-dark bg-white rounded">
                <h2 className="card-title">Welcome back</h2>
