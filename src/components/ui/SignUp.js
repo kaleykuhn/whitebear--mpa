@@ -1,8 +1,10 @@
 import React from "react";
 import classnames from "classnames";
-
 import { Link } from "react-router-dom";
 import { es } from "date-fns/locale";
+import hash from "object-hash";
+import { v4 as getUUid } from "uuid";
+
 export default class SignUp extends React.Component {
    constructor(props) {
       super(props);
@@ -22,7 +24,7 @@ export default class SignUp extends React.Component {
    }
 
    //set email state
-   setEmailState(emailInput) {
+   async setEmailState(emailInput) {
       const lowerCasedEmailInput = emailInput.toLowerCase();
       console.log(lowerCasedEmailInput);
       // eslint-disable-next-line
@@ -55,7 +57,7 @@ export default class SignUp extends React.Component {
       else return passwordInput.includes(localPart);
    }
    // set state of password
-   setPasswordState(passwordInput, emailInput) {
+   async setPasswordState(passwordInput, emailInput) {
       console.log(passwordInput);
       //can't be blank
       // must be at least 9 characters
@@ -92,7 +94,7 @@ export default class SignUp extends React.Component {
       }
    }
    //setting the state of App
-   validateAndCreateUser() {
+   async validateAndCreateUser() {
       console.log("VALIDATE ME");
       //Email cannot be blank
       //must have valid email regex
@@ -100,13 +102,20 @@ export default class SignUp extends React.Component {
       console.log(emailInput);
       const passwordInput = document.getElementById("login-password-input")
          .value;
-      this.setEmailState(emailInput);
-      this.setPasswordState(passwordInput, emailInput);
+      await this.setEmailState(emailInput);
+      await this.setPasswordState(passwordInput, emailInput);
       if (
          this.state.hasEmailError === false &&
          this.state.hasPasswordError === false
       ) {
-         console.log("Valid!!!!");
+         //create user object
+         const user = {
+            id: getUUid(),
+            email: emailInput,
+            password: hash(passwordInput),
+            createdAt: Date.now(),
+         };
+         console.log("Valid!!!!", user);
       }
    }
 
