@@ -2,6 +2,7 @@ import React from "react";
 import classnames from "classnames";
 
 import { Link } from "react-router-dom";
+import { es } from "date-fns/locale";
 export default class SignUp extends React.Component {
    constructor(props) {
       super(props);
@@ -19,6 +20,8 @@ export default class SignUp extends React.Component {
          isDisplayingInputs: true,
       });
    }
+
+   //set email state
    setEmailState(emailInput) {
       const lowerCasedEmailInput = emailInput.toLowerCase();
       console.log(lowerCasedEmailInput);
@@ -39,19 +42,56 @@ export default class SignUp extends React.Component {
          this.setState({ emailError: "", hasEmailError: false });
       }
    }
-   setPasswordState(passwordInput) {
+
+   checkHasLocalPart(passwordInput, emailInput) {
+      console.log(emailInput);
+      //split returns an array and you need to get first thing in that array
+      const localPart = emailInput.split("@")[0];
+      console.log(localPart);
+      //includes method returns true or false
+      //return passwordInput.includes(localPart);
+      if (localPart === "") return false;
+      else if (localPart.length < 4) return false;
+      else return passwordInput.includes(localPart);
+   }
+   // set state of password
+   setPasswordState(passwordInput, emailInput) {
       console.log(passwordInput);
       //can't be blank
       // must be at least 9 characters
       //cannot contain the local-part of the email
       //must have at least 3 unique characters
-      if (passwordInput === "")
+      const uniqChars = [...new Set(passwordInput)];
+      console.log(uniqChars);
+      if (passwordInput === "") {
          this.setState({
-            passwordError: "Please create a password. ",
+            passwordError: "Please create a password.",
             hasPasswordError: true,
          });
+      } else if (passwordInput.length < 9) {
+         this.setState({
+            passwordError: "Your password must be at least 9 characters",
+            hasPasswordError: true,
+         });
+      } else if (this.checkHasLocalPart(passwordInput, emailInput)) {
+         // if it contains local part returns true
+         // then set error state
+         this.setState({
+            passwordError:
+               "For your safety password cannot contain your email address",
+            hasPasswordError: true,
+         });
+      } else if (uniqChars.length < 3) {
+         this.setState({
+            passwordError:
+               "For your safety, your password must contain at least 3 unique characters",
+            hasPasswordError: true,
+         });
+      } else {
+         this.setState({ passwordError: "", hasPasswordError: false });
+      }
    }
-
+   //setting the state of App
    validateAndCreateUser() {
       console.log("VALIDATE ME");
       //Email cannot be blank
@@ -61,7 +101,13 @@ export default class SignUp extends React.Component {
       const passwordInput = document.getElementById("login-password-input")
          .value;
       this.setEmailState(emailInput);
-      this.setPasswordState(passwordInput);
+      this.setPasswordState(passwordInput, emailInput);
+      if (
+         this.state.hasEmailError === false &&
+         this.state.hasPasswordError === false
+      ) {
+         console.log("Valid!!!!");
+      }
    }
 
    render() {
