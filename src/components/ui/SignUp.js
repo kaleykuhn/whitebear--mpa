@@ -100,7 +100,7 @@ export default class SignUp extends React.Component {
       //must have valid email regex
       const emailInput = document.getElementById("signup-email-input").value;
       console.log(emailInput);
-      const passwordInput = document.getElementById("login-password-input")
+      const passwordInput = document.getElementById("signup-password-input")
          .value;
       await this.setEmailState(emailInput);
       await this.setPasswordState(passwordInput, emailInput);
@@ -161,7 +161,7 @@ export default class SignUp extends React.Component {
                            )}
                            <div className="mb-4"></div>
                            <label
-                              htmlFor="login-password-input"
+                              htmlFor="signup-password-input"
                               className="text-muted"
                            >
                               Password
@@ -172,7 +172,7 @@ export default class SignUp extends React.Component {
                                  "form-control": true,
                                  "is-invalid": this.state.hasPasswordError,
                               })}
-                              id="login-password-input"
+                              id="signup-password-input"
                               placeholder=""
                            />
                            {this.state.hasPasswordError && (
