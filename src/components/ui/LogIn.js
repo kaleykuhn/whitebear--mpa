@@ -2,12 +2,10 @@ import React from "react";
 import classnames from "classnames";
 import hash from "object-hash";
 import { v4 as getUUid } from "uuid";
-import { Link } from "react-router-dom";
 
 export default class Login extends React.Component {
    constructor(props) {
       super(props);
-      console.log("In a new class component");
       this.state = {
          emailError: "",
          hasEmailError: false,

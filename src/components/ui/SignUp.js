@@ -1,14 +1,11 @@
 import React from "react";
 import classnames from "classnames";
-import { Link } from "react-router-dom";
-import { es } from "date-fns/locale";
 import hash from "object-hash";
 import { v4 as getUUid } from "uuid";
 
 export default class SignUp extends React.Component {
    constructor(props) {
       super(props);
-      console.log("In a new class component");
       this.state = {
          isDisplayingInputs: false,
          emailError: "",
