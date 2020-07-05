@@ -35,7 +35,7 @@ export default class Allcards extends React.Component {
    setMemoryCardsOrder(e) {
       console.log("new change made");
       const newOrder = e.target.value;
-      console.log(newOrder); //"['totalSuccesfuleAttempts','createdAt'], ['desc', 'desc']"
+      console.log(newOrder); //"['totalSuccesfuleAttempts','createdAt'], ['desc', 'desc']" //
       const copyofMemoryCards = [...this.state.memoryCards];
       const toJson = JSON.parse(newOrder);
       console.log(...toJson);
