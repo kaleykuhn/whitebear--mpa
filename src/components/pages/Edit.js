@@ -11,11 +11,23 @@ const memoryCard = memoryCards[2];
 export default class Edit extends React.Component {
    constructor(props) {
       super(props);
-      console.log("In the Edit component");
+
       this.state = {
          answerText: memoryCard.answer,
          imageryText: memoryCard.imagery,
+         isShowDeleteChecked: false,
+         isDeleteButtonDisplayed: false,
       };
+   }
+
+   setImageryText(e) {
+      this.setState({ imageryText: e.target.value });
+      console.log(e.target, e.target.value);
+   }
+
+   setAnswerText(e) {
+      this.setState({ answerText: e.target.value });
+      console.log(e.target, e.target.value);
    }
 
    checkHasInvalidCharCount() {
@@ -28,14 +40,11 @@ export default class Edit extends React.Component {
          return true;
       } else return false;
    }
-
-   setImageryText(e) {
-      this.setState({ imageryText: e.target.value });
-      console.log(e.target, e.target.value);
-   }
-   setAnswerText(e) {
-      this.setState({ answerText: e.target.value });
-      console.log(e.target, e.target.value);
+   toggleAndShowDeleteButton(e) {
+      this.setState({
+         isShowDeleteChecked: e.target.checked,
+         isDeleteButtonDisplayed: !this.state.isDeleteButtonDisplayed,
+      });
    }
 
    render() {
@@ -155,6 +164,10 @@ export default class Edit extends React.Component {
                         type="checkbox"
                         className="custom-control-input"
                         id="show-delete"
+                        checked={this.state.isShowDeleteChecked}
+                        onChange={(e) => {
+                           this.toggleAndShowDeleteButton(e);
+                        }}
                      />
                      <label
                         className="custom-control-label"
@@ -165,13 +178,16 @@ export default class Edit extends React.Component {
                   </div>
                </div>
             </div>
-            <button
-               type="button"
-               className=" btn btn-lg btn-outline-danger my-4"
-               id="delete-button"
-            >
-               Delete this card
-            </button>
+            {this.state.isDeleteButtonDisplayed && (
+               <Link
+                  to="/all-cards"
+                  type="button"
+                  className=" btn btn-lg btn-outline-danger my-4"
+                  id="delete-button"
+               >
+                  Delete this card
+               </Link>
+            )}
          </AppTemplate>
       );
    }
