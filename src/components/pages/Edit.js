@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import memoryCards from "../../mock-data/memory-cards";
 import toDisplayDate from "date-fns/format";
 import classnames from "classnames";
-import { checkIsOver, MAX_CARD_CHARS } from "../../utils/helpers";
+import { checkIsOver, MAX_CARD_CHARS } from "../../utils/helpers"; //
 const memoryCard = memoryCards[2];
 
 export default class Edit extends React.Component {
