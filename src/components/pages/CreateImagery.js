@@ -9,7 +9,7 @@ const memoryCard = memoryCards[5];
 
 export default class CreateImagery extends React.Component {
    constructor(props) {
-      super(props);
+      super(props); //
       this.state = {
          imageryText: "",
       };
