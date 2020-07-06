@@ -2,8 +2,10 @@ import React from "react";
 import classnames from "classnames";
 import hash from "object-hash";
 import { v4 as getUUid } from "uuid";
+import { withRouter } from "react-router-dom";
+import { EMAIL_REGEX } from "../../utils/helpers";
 
-export default class Login extends React.Component {
+class Login extends React.Component {
    constructor(props) {
       super(props);
       this.state = {
@@ -23,14 +25,13 @@ export default class Login extends React.Component {
    async setEmailState(emailInput) {
       const lowerCasedEmailInput = emailInput.toLowerCase();
       console.log(lowerCasedEmailInput);
-      // eslint-disable-next-line
-      const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
       if (emailInput === "")
          this.setState({
             emailError: "Please enter your email address.",
             hasEmailError: true,
          });
-      else if (!emailRegex.test(lowerCasedEmailInput)) {
+      else if (!EMAIL_REGEX.test(lowerCasedEmailInput)) {
          console.log("NOT a VALID EMAIl");
          this.setState({
             emailError: "Please enter a valid email address.",
@@ -60,7 +61,7 @@ export default class Login extends React.Component {
       }
    }
    //setting the state of App
-   async validateAndCreateUser() {
+   async validateAndLogInUser() {
       console.log("VALIDATE ME");
       //Email cannot be blank
       //must have valid email regex
@@ -82,12 +83,14 @@ export default class Login extends React.Component {
             createdAt: Date.now(),
          };
          console.log("Valid!!!!", user);
+         //redirect the user
+         this.props.history.push("/create-answer");
       }
    }
 
    render() {
       return (
-         <div className="offset-1 col-10 offset-sm-1 col-sm-9 offset-md-1 col-md-4 offset-lg-2 col-lg-4 offset-xl-2 col-xl-4 mb-6 mt-8">
+         <div className="col-xl-5 col-sm-6 col-12 mb-6">
             <div className="card">
                <div className="card-body text-dark bg-white rounded">
                   <h2 className="card-title">Welcome back</h2>
@@ -102,6 +105,7 @@ export default class Login extends React.Component {
                   <input
                      type="email"
                      className={classnames({
+                        "mb-2": true,
                         "form-control": true,
                         "is-invalid": this.state.hasEmailError,
                      })}
@@ -109,7 +113,9 @@ export default class Login extends React.Component {
                      placeholder=""
                   />
                   {this.state.hasPasswordError && (
-                     <p className="text-danger">{this.state.emailError}</p>
+                     <small className="text-danger">
+                        {this.state.emailError}
+                     </small>
                   )}
 
                   <label htmlFor="login-password-input" className="text-muted">
@@ -118,6 +124,7 @@ export default class Login extends React.Component {
                   <input
                      type="password"
                      className={classnames({
+                        "mb-2": true,
                         "form-control": true,
                         "is-invalid": this.state.hasPasswordError,
                      })}
@@ -125,13 +132,15 @@ export default class Login extends React.Component {
                      placeholder=""
                   />
                   {this.state.hasPasswordError && (
-                     <p className="text-danger">{this.state.passwordError}</p>
+                     <small className="text-danger">
+                        {this.state.passwordError}
+                     </small>
                   )}
 
                   <button
                      className="btn btn-success float-right mt-6"
                      onClick={() => {
-                        this.validateAndCreateUser();
+                        this.validateAndLogInUser();
                      }}
                   >
                      Log in
@@ -142,3 +151,4 @@ export default class Login extends React.Component {
       );
    }
 }
+export default withRouter(Login);
