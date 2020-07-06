@@ -2,8 +2,10 @@ import React from "react";
 import classnames from "classnames";
 import hash from "object-hash";
 import { v4 as getUUid } from "uuid";
+import { withRouter } from "react-router-dom";
+import { EMAIL_REGEX } from "../../utils/helpers";
 
-export default class SignUp extends React.Component {
+class SignUp extends React.Component {
    constructor(props) {
       super(props);
       this.state = {
@@ -24,14 +26,13 @@ export default class SignUp extends React.Component {
    async setEmailState(emailInput) {
       const lowerCasedEmailInput = emailInput.toLowerCase();
       console.log(lowerCasedEmailInput);
-      // eslint-disable-next-line
-      const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
       if (emailInput === "")
          this.setState({
             emailError: "Please enter your email address.",
             hasEmailError: true,
          });
-      else if (!emailRegex.test(lowerCasedEmailInput)) {
+      else if (!EMAIL_REGEX.test(lowerCasedEmailInput)) {
          console.log("NOT a VALID EMAIl");
          this.setState({
             emailError: "Please enter a valid email address.",
@@ -113,12 +114,13 @@ export default class SignUp extends React.Component {
             createdAt: Date.now(),
          };
          console.log("Valid!!!!", user);
+         this.props.history.push("/create-answer");
       }
    }
 
    render() {
       return (
-         <div className="offset-1 col-10 offset-sm-1 col-sm-9 offset-md-1 col-md-4 offset-lg-2 col-lg-4 offset-xl-2 col-xl-4 mb-6 mt-8">
+         <div className="col-xl-5 col-sm-6 col-12 mb-6">
             <div className="card">
                <div className="card-body text-dark bg-white rounded">
                   <h2 className="card-title">Nice to Meet You</h2>
@@ -152,11 +154,11 @@ export default class SignUp extends React.Component {
                               placeholder=""
                            />
                            {this.state.hasEmailError && (
-                              <p className="text-danger mb-4">
+                              <small className="text-danger mb-4">
                                  {this.state.emailError}
-                              </p>
+                              </small>
                            )}
-                           <div className="mb-4"></div>
+                           <div className="mb-2"></div>
                            <label
                               htmlFor="signup-password-input"
                               className="text-muted"
@@ -166,6 +168,7 @@ export default class SignUp extends React.Component {
                            <input
                               type="password"
                               className={classnames({
+                                 "mb-2": true,
                                  "form-control": true,
                                  "is-invalid": this.state.hasPasswordError,
                               })}
@@ -173,9 +176,9 @@ export default class SignUp extends React.Component {
                               placeholder=""
                            />
                            {this.state.hasPasswordError && (
-                              <p className="text-danger">
+                              <small className="text-danger">
                                  {this.state.passwordError}
-                              </p>
+                              </small>
                            )}
                            <div className="mb-2"></div>
 
@@ -207,3 +210,4 @@ export default class SignUp extends React.Component {
       );
    }
 }
+export default withRouter(SignUp);
