@@ -105,7 +105,7 @@ export default class Edit extends React.Component {
                Discard changes
             </Link>
             <Link
-               to="all-cards"
+               to="Edit"
                className={classnames("btn btn-primary float-right btn-lg  ", {
                   disabled: this.checkHasInvalidCharCount(),
                })}
