@@ -41,7 +41,10 @@ export default class CreateAnswer extends React.Component {
                </div>
             </div>
 
-            <p className="float-right mb-5 mt-2" id="characterCounter">
+            <p
+               className="float-right mb-5 mt-2 text-muted"
+               id="characterCounter"
+            >
                <span
                   className={classnames({
                      "text-danger": checkIsOver(
