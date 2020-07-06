@@ -51,7 +51,7 @@ export default class CreateImagery extends React.Component {
                </div>
             </div>
 
-            <p className="float-right mb-5 mt-2">
+            <p className="float-right mb-5 mt-2 text-muted">
                <span
                   className={classnames({
                      "text-danger": checkIsOver(
@@ -64,7 +64,7 @@ export default class CreateImagery extends React.Component {
                </span>
             </p>
 
-            <div className="clearfix"></div>
+            <div className="clearfix "></div>
 
             <Link
                to="/create-answer"
