@@ -10,13 +10,33 @@ export default class Allcards extends React.Component {
       super(props);
       this.state = {
          order: '[["createdAt"],["desc"]]',
-         memoryCards: orderBy(memoryCards, ["createdAt"], ["desc"]),
+         displayedMemoryCards: orderBy(memoryCards, ["createdAt"], ["desc"]),
+         allMemoryCards: orderBy(memoryCards, ["createdAt"], ["desc"]),
       };
    }
 
    // set order of filter
-   filterByInput(e) {}
+   filterByInput() {
+      const input = document.getElementById("search-input").value;
+      const lowerCasedInput = input.toLowerCase();
+      console.log(lowerCasedInput);
+      const copyOfAllMemoryCards = [...this.state.allMemoryCards];
 
+      const filteredMemoryCards = copyOfAllMemoryCards.filter((memoryCard) => {
+         const lowerCasedImagery = memoryCard.imagery.toLowerCase();
+         const lowerCasedAnswer = memoryCard.answer.toLowerCase();
+         if (
+            lowerCasedImagery.includes(lowerCasedInput) ||
+            lowerCasedAnswer.includes(lowerCasedInput)
+         ) {
+            return true;
+         }
+         return false;
+      });
+      this.setState({ displayedMemoryCards: filteredMemoryCards }, () => {
+         this.setMemoryCards();
+      });
+   }
    //set the change order
    setOrder(e) {
       const newOrder = e.target.value;
@@ -29,25 +49,25 @@ export default class Allcards extends React.Component {
    //set state of memory cards
    setMemoryCards() {
       console.log("setting memory cards");
-      const copyofMemoryCards = [...this.state.memoryCards];
+      const copyofDisplayedMemoryCards = [...this.state.displayedMemoryCards];
       const toJson = JSON.parse(this.state.order);
       console.log(...toJson);
-      const orderedMemoryCards = orderBy(copyofMemoryCards, ...toJson);
+      const orderedMemoryCards = orderBy(copyofDisplayedMemoryCards, ...toJson);
       console.log(orderedMemoryCards);
-      this.setState({ memoryCards: orderedMemoryCards });
+      this.setState({ displayedMemoryCards: orderedMemoryCards });
    }
 
-   setMemoryCardsOrder(e) {
-      console.log("new change made");
-      const newOrder = e.target.value;
-      console.log(newOrder); //"['totalSuccesfuleAttempts','createdAt'], ['desc', 'desc']" //
-      const copyofMemoryCards = [...this.state.memoryCards];
-      const toJson = JSON.parse(newOrder);
-      console.log(...toJson);
-      const orderedMemoryCards = orderBy(copyofMemoryCards, ...toJson);
+   // setMemoryCardsOrder(e) {
+   //    console.log("new change made");
+   //    const newOrder = e.target.value;
+   //    console.log(newOrder); //"['totalSuccesfuleAttempts','createdAt'], ['desc', 'desc']" //
+   //    const copyofMemoryCards = [...this.state.memoryCards];
+   //    const toJson = JSON.parse(newOrder);
+   //    console.log(...toJson);
+   //    const orderedMemoryCards = orderBy(copyofMemoryCards, ...toJson);
 
-      this.setState({ order: newOrder, memoryCards: orderedMemoryCards });
-   }
+   //    this.setState({ order: newOrder, memoryCards: orderedMemoryCards });
+   // }
 
    render() {
       return (
@@ -59,10 +79,14 @@ export default class Allcards extends React.Component {
                      type="search"
                      className="form-control border ml-4"
                      placeholder="Search for a word"
+                     id="search-input"
                   />
                </div>
-               <div className="col-4 col-sm-4 mb-4">
-                  <button className="btn btn-secondary float-right">
+               <div className="col-4 col-sm-4 mt-1 ">
+                  <button
+                     className="btn btn-primary btn-block btn-sm "
+                     onClick={() => this.filterByInput()}
+                  >
                      search
                   </button>
                </div>
@@ -90,7 +114,7 @@ export default class Allcards extends React.Component {
                   </select>
                </div>
             </div>
-            {this.state.memoryCards.map((memoryCard) => {
+            {this.state.displayedMemoryCards.map((memoryCard) => {
                return (
                   <MemoryCard
                      answer={memoryCard.answer}
