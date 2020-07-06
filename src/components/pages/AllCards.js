@@ -9,29 +9,34 @@ export default class Allcards extends React.Component {
    constructor(props) {
       super(props);
       this.state = {
-         order: '[["createdAt"], ["desc"]]',
+         order: '[["createdAt"],["desc"]]',
          memoryCards: orderBy(memoryCards, ["createdAt"], ["desc"]),
       };
-
-      /*
-      Easy
-      orderBy([totalSuccesfulAttempts, createdAt], [desc, desc])
-      
-
-
-      Hard 
-      orderBy ([totalSuccessfulAttempts, createdAt]), [asc, asc])
-
-
-      MOST RECENT
-      orderBy(createdAt, desc)
-     
-     
-      OLDEST
-      orderBy(createdAt,asc)
-
-      */
    }
+
+   // set order of filter
+   filterByInput(e) {}
+
+   //set the change order
+   setOrder(e) {
+      const newOrder = e.target.value;
+      console.log(newOrder); //"['totalSuccesfuleAttempts','createdAt'], ['desc', 'desc']" //
+      this.setState({ order: newOrder }, () => {
+         this.setMemoryCards();
+      });
+   }
+
+   //set state of memory cards
+   setMemoryCards() {
+      console.log("setting memory cards");
+      const copyofMemoryCards = [...this.state.memoryCards];
+      const toJson = JSON.parse(this.state.order);
+      console.log(...toJson);
+      const orderedMemoryCards = orderBy(copyofMemoryCards, ...toJson);
+      console.log(orderedMemoryCards);
+      this.setState({ memoryCards: orderedMemoryCards });
+   }
+
    setMemoryCardsOrder(e) {
       console.log("new change made");
       const newOrder = e.target.value;
@@ -43,6 +48,7 @@ export default class Allcards extends React.Component {
 
       this.setState({ order: newOrder, memoryCards: orderedMemoryCards });
    }
+
    render() {
       return (
          <AppTemplate>
@@ -69,7 +75,7 @@ export default class Allcards extends React.Component {
                   <select
                      value={this.state.order}
                      className="form-control form-control-sm border rounded-sm"
-                     onChange={(e) => this.setMemoryCardsOrder(e)}
+                     onChange={(e) => this.setOrder(e)}
                   >
                      <option value='[["createdAt"], ["desc"]]'>
                         Most Recent
