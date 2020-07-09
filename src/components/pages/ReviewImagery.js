@@ -3,32 +3,45 @@ import AppTemplate from "../ui/AppTemplate";
 import { Link } from "react-router-dom";
 import memoryCards from "../../mock-data/memory-cards";
 import axios from "axios";
-
+import { connect } from "react-redux";
+import actions from "../../store/actions";
 const memoryCard = memoryCards[2];
-export default class ReviewImagery extends React.Component {
+class ReviewImagery extends React.Component {
    constructor(props) {
       super(props);
       axios
          .get(
             "https://raw.githubusercontent.com/kaleykuhn/white-bear-mpa/master/src/mock-data/memory-cards.json"
          )
-         .then(function (response) {
+         .then(function (res) {
             // handle success
-            console.log(response);
+            console.log(res);
+            props.dispatch({
+               type: actions.STORE_QUEUED_CARDS,
+               payload: res.data,
+            });
          })
          .catch(function (error) {
             // handle error
             console.log(error);
          });
+      /* 
+         queuedCards: [],
+         indexOfCurrentCard: 0,
+         currentUser : {}
+        */
    }
 
    render() {
+      const memoryCard = this.props.queuedCards[this.props.indexOfCurrentCard];
       return (
          <AppTemplate>
             <div className="mt-5"></div>
             <div className="mb-5">
                <div className="card bg-primary">
-                  <div className="card-body">{memoryCard.imagery}</div>
+                  <div className="card-body">
+                     {memoryCard && memoryCard.imagery}
+                  </div>
                </div>
             </div>
             <Link to="/review-answer" className="btn btn-link">
@@ -47,3 +60,10 @@ export default class ReviewImagery extends React.Component {
       );
    }
 }
+function mapStateToProps(state) {
+   return {
+      queuedCards: state.queuedCards,
+      indexOfCurrentCard: state.indexOfCurrentCard,
+   };
+}
+export default connect(mapStateToProps)(ReviewImagery);
