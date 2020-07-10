@@ -14,7 +14,8 @@ class ReviewAnswer extends React.Component {
       this.props.history.push("/review-imagery");
    }
    render() {
-      const memoryCard = this.props.queuedCards[this.props.indexOfCurrentCard];
+      const memoryCard = this.props.queue.cards[this.props.queue.index];
+
       return (
          <AppTemplate>
             <div className="mb-5"></div>
@@ -48,7 +49,7 @@ class ReviewAnswer extends React.Component {
                <button
                   type="button"
                   className="btn btn-primary"
-                  nClick={() => {
+                  onClick={() => {
                      this.gotoNextCard();
                   }}
                >
@@ -67,8 +68,7 @@ class ReviewAnswer extends React.Component {
 }
 function mapStateToProps(state) {
    return {
-      queuedCards: state.queuedCards,
-      indexOfCurrentCard: state.indexOfCurrentCard,
+      queue: state.queue,
    };
 }
 export default connect(mapStateToProps)(ReviewAnswer);
